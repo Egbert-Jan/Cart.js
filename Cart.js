@@ -41,23 +41,29 @@ $(document).ready(function(){
 
         console.log(arrayFromCookie);
         $.cookie('cart', JSON.stringify(arrayFromCookie));
+
     });
 
     $(".out-of-shopping-cart").click(function (e) {
         e.preventDefault();
-        var idOfProduct = $(this).closest(".out-of-shopping-cart").attr("data-product-id");
 
-        var arrayFromCookie;
-        if($.cookie('cart') !== "" || $.cookie('cart') !== null){
-            arrayFromCookie = JSON.parse($.cookie('cart'));
+        if (confirm('Are you sure you want to delete this product?')) {
+            var idOfProduct = $(this).closest(".out-of-shopping-cart").attr("data-product-id");
+
+            var arrayFromCookie;
+            if($.cookie('cart') !== "" || $.cookie('cart') !== null){
+                arrayFromCookie = JSON.parse($.cookie('cart'));
+            }
+
+            var updatedArray = arrayFromCookie.filter(function( obj ) {
+                return obj.productId !== idOfProduct;
+            });
+
+            $.cookie('cart', JSON.stringify(updatedArray));
+            location.reload();
+        } else {
+
         }
-
-        var updatedArray = arrayFromCookie.filter(function( obj ) {
-            return obj.productId !== idOfProduct;
-        });
-
-        $.cookie('cart', JSON.stringify(updatedArray));
-        location.reload();
     });
 
 
