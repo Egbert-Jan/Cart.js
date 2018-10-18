@@ -9,7 +9,7 @@ $(document).ready(function(){
 
     $(".in-shopping-cart").click(function (e) {
         e.preventDefault();
-        var idOfProduct = $(this).closest(".in-shopping-cart").attr("id");
+        var idOfProduct = $(this).closest(".in-shopping-cart").attr("data-product-id");
 
         var arrayFromCookie;
         if($.cookie('cart') !== "" || $.cookie('cart') !== null){
@@ -45,7 +45,7 @@ $(document).ready(function(){
 
     $(".out-of-shopping-cart").click(function (e) {
         e.preventDefault();
-        var idOfProduct = $(this).closest(".out-of-shopping-cart").attr("id");
+        var idOfProduct = $(this).closest(".out-of-shopping-cart").attr("data-product-id");
 
         var arrayFromCookie;
         if($.cookie('cart') !== "" || $.cookie('cart') !== null){
