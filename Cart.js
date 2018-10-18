@@ -1,27 +1,26 @@
 $(document).ready(function(){
 
-    if($.cookie('winkelmand') === undefined){
-        $.cookie('winkelmand', "[]", { expires: 365 * 10 });
-        console.log($.cookie('winkelmand'));
+    if($.cookie('cart') === undefined){
+        $.cookie('cart', "[]", { expires: 365 * 10 });
+        console.log($.cookie('cart'));
     }else{
-        console.log($.cookie('winkelmand'));
+        console.log($.cookie('cart'));
     }
 
-
-
-    $(".in-shopping-cart").click(function () {
-        var nrOfProduct = $(this).closest(".in-shopping-cart").attr("id");
+    $(".in-shopping-cart").click(function (e) {
+        e.preventDefault();
+        var idOfProduct = $(this).closest(".in-shopping-cart").attr("id");
 
         var arrayFromCookie;
-        if($.cookie('winkelmand') !== "" || $.cookie('winkelmand') !== null){
-            arrayFromCookie = JSON.parse($.cookie('winkelmand'));
+        if($.cookie('cart') !== "" || $.cookie('cart') !== null){
+            arrayFromCookie = JSON.parse($.cookie('cart'));
         }
 
         var found = false; var index = -1;
         for(var i = 0; i < arrayFromCookie.length; i++) {
 
-            if (arrayFromCookie[i].productnr === nrOfProduct) {
-                arrayFromCookie[i].value++;
+            if (arrayFromCookie[i].productId === idOfProduct) {
+                arrayFromCookie[i].amount++;
                 found = true;
                 index = i;
                 break;
@@ -29,10 +28,10 @@ $(document).ready(function(){
         }
 
         if(found !== true){
-            console.log("maak nieuw aan!");
+            console.log("Product added!");
             obj = {
-                "productnr": nrOfProduct,
-                "value": 1
+                "productId": idOfProduct,
+                "amount": 1
             };
 
             arrayFromCookie.push(obj);
@@ -41,24 +40,23 @@ $(document).ready(function(){
         }
 
         console.log(arrayFromCookie);
-        $.cookie('winkelmand', JSON.stringify(arrayFromCookie));
+        $.cookie('cart', JSON.stringify(arrayFromCookie));
     });
 
-
-
-    $(".out-of-shopping-cart").click(function () {
-        var nrOfProduct = $(this).closest(".out-of-shopping-cart").attr("id");
+    $(".out-of-shopping-cart").click(function (e) {
+        e.preventDefault();
+        var idOfProduct = $(this).closest(".out-of-shopping-cart").attr("id");
 
         var arrayFromCookie;
-        if($.cookie('winkelmand') !== "" || $.cookie('winkelmand') !== null){
-            arrayFromCookie = JSON.parse($.cookie('winkelmand'));
+        if($.cookie('cart') !== "" || $.cookie('cart') !== null){
+            arrayFromCookie = JSON.parse($.cookie('cart'));
         }
 
         var updatedArray = arrayFromCookie.filter(function( obj ) {
-            return obj.productnr !== nrOfProduct;
+            return obj.productId !== idOfProduct;
         });
 
-        $.cookie('winkelmand', JSON.stringify(updatedArray));
+        $.cookie('cart', JSON.stringify(updatedArray));
         location.reload();
     });
 
@@ -66,22 +64,19 @@ $(document).ready(function(){
 
 });
 
-
-
-
-function updateCart(nrOfProduct, value) {
+function updateCart(idOfProduct, amount) {
 
     var arrayFromCookie;
-    if($.cookie('winkelmand') !== "" || $.cookie('winkelmand') !== null){
-        arrayFromCookie = JSON.parse($.cookie('winkelmand'));
+    if($.cookie('cart') !== "" || $.cookie('cart') !== null){
+        arrayFromCookie = JSON.parse($.cookie('cart'));
     }
 
     for(var i = 0; i < arrayFromCookie.length; i++) {
-        if (arrayFromCookie[i].productnr == nrOfProduct) {
-            arrayFromCookie[i].value = parseInt(value);
+        if (arrayFromCookie[i].productId == idOfProduct) {
+            arrayFromCookie[i].amount = parseInt(amount);
             break;
         }
     }
 
-    $.cookie('winkelmand', JSON.stringify(arrayFromCookie));
+    $.cookie('cart', JSON.stringify(arrayFromCookie));
 }
