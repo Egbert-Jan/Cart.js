@@ -12,13 +12,13 @@ There are a couple of steps you need to take before you can use cart.js. See thi
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script src="{paht-to-your-file}/Cart.js"></script>
+<script src="{path-to-your-file}/Cart.js"></script>
 ```
 
 <br>
 
 
-## This is how your buttons should look for cart.js to work. Of Course you can add your own classes as well
+## This is what your buttons should look like for cart.js to work. Of course you can add your own classes as well
 
 ### In your shop file:
 
