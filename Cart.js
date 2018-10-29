@@ -47,7 +47,6 @@ $(document).ready(function(){
     $(".out-of-shopping-cart").click(function (e) {
         e.preventDefault();
 
-        if (confirm('Are you sure you want to delete this product?')) {
             var idOfProduct = $(this).closest(".out-of-shopping-cart").attr("data-product-id");
 
             var arrayFromCookie;
@@ -61,9 +60,6 @@ $(document).ready(function(){
 
             $.cookie('cart', JSON.stringify(updatedArray));
             location.reload();
-        } else {
-
-        }
     });
 
 
